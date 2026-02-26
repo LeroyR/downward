@@ -47,10 +47,7 @@ def try_get_executable(build: str, rel_path: Path):
     return path
 
 def get_executable(build: str, rel_path: Path):
-    try:
-        return try_get_executable(build, rel_path)
-    except IncompleteBuildError as err:
-        returncodes.exit_with_driver_input_error(f"{err} Please run './build.py {build}'.")
+    return f"downward{BINARY_EXT}"
 
 def report_version(build: str):
     print(f"Fast Downward {__version__}")
@@ -72,17 +69,16 @@ def run_translate(args):
         args.translate_memory_limit, args.overall_memory_limit)
 
     # Check existence of translate in build.
-    translate = get_executable(args.build, REL_TRANSLATE_PATH)
+    #translate = get_executable(args.build, REL_TRANSLATE_PATH)
 
-    assert sys.executable, "Path to interpreter could not be found"
+    #assert sys.executable, "Path to interpreter could not be found"
     cmd = [sys.executable] + ["-m", "translate"] + args.translate_inputs + args.translate_options
 
     stderr, returncode = call.get_error_output_and_returncode(
         "translator",
         cmd,
         time_limit=time_limit,
-        memory_limit=memory_limit,
-        prepend_to_python_path=translate.parent)
+        memory_limit=memory_limit)
 
     # We collect stderr of the translator and print it here, unless
     # the translator ran out of memory and all output in stderr is

@@ -46,6 +46,10 @@ set_up_options()
 project(downward LANGUAGES CXX)
 add_executable(downward planner.cc)
 
+install(TARGETS downward
+    RUNTIME DESTINATION bin
+)
+
 # obtain git SHA1 hash
 execute_process(
     COMMAND git log -1 "--format=format:%h%n" HEAD

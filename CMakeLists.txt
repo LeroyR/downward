@@ -29,17 +29,7 @@ project(fast-downward
     DESCRIPTION "Fast Downward is a domain-independent classical planning system."
     HOMEPAGE_URL https://www.fast-downward.org/)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
-
 # Add planner components.
 
-# Copy the translator into the output directory.
-add_custom_target(translate ALL)
-add_custom_command(TARGET translate POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_CURRENT_SOURCE_DIR}/translate
-        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_CFG_INTDIR}/translate
-    COMMENT "Copying translator module into output directory")
-
 # Add search component as a subproject.
-add_subdirectory(search)
+add_subdirectory(src/search)
