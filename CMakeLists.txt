@@ -33,3 +33,9 @@ project(fast-downward
 
 # Add search component as a subproject.
 add_subdirectory(src/search)
+
+
+install(PROGRAMS
+    fast-downward.py
+    DESTINATION bin
+    )
